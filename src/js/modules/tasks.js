@@ -1,3 +1,5 @@
+import { closeModal } from "./modal";
+
 function tasks() {
     class Task {
         constructor(title, description) {
@@ -5,8 +7,8 @@ function tasks() {
             this.description = description;
             this.status = 'to-do';
         }
-        
-        render() {
+
+        createElement() {
             const element = document.createElement('li');
             element.classList.add('task-card');
             element.innerHTML = `
@@ -16,20 +18,25 @@ function tasks() {
                 </div>
                 <div class="task-card__desc">${this.description}</div>
             `;
-            document.querySelector('.task-list').append(element);
+            return element;
+        }
+        
+        render() {
+            document.querySelector('#todo-list').append(this.createElement());
         }
     }
         
         
     document.querySelector('.modal-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const title = document.querySelector('[name="title"]').value,
-        description = document.querySelector('[name="description"]').value;
+        const form = e.target;
+        const title = form.querySelector('[name="title"]').value,
+              description = form.querySelector('[name="description"]').value;
         if (!title.trim() || !description.trim()) return;
     
         new Task(title, description).render();
-        e.target.reset();
-        closeModal();
+        form.reset();
+        closeModal('.modal');
     })
 }
 

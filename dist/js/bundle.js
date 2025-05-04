@@ -10,29 +10,36 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   closeModal: () => (/* binding */ closeModal),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   openModal: () => (/* binding */ openModal)
 /* harmony export */ });
-function modal() {
-    const btnAddTask = document.querySelector('.add-task-btn-min'),
-          modal = document.querySelector('.modal'),
+const closeModal = (modalSelector) => {
+    const modal = document.querySelector(modalSelector);
+    modal.classList.remove('modal-active');
+}
+
+const openModal = (modalSelector) => {
+    const modal = document.querySelector(modalSelector);
+    modal.classList.add('modal-active');
+}
+
+function modal(modalSelector) {
+    const btnAddTask = document.querySelector('.modal-open'),
           modalClose = document.querySelector('.modal-cancel');
 
-
     btnAddTask.addEventListener('click', () => {
-        modal.classList.add('modal-active');
+        openModal(modalSelector) 
     });
-
-    const closeModal = () => {
-        modal.classList.remove('modal-active');
-    }
 
 
     modalClose.addEventListener('click', () => {
-        closeModal();
+        closeModal(modalSelector);
     });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
+
 
 
 
@@ -48,6 +55,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./src/js/modules/modal.js");
+
+
 function tasks() {
     class Task {
         constructor(title, description) {
@@ -55,8 +65,8 @@ function tasks() {
             this.description = description;
             this.status = 'to-do';
         }
-        
-        render() {
+
+        createElement() {
             const element = document.createElement('li');
             element.classList.add('task-card');
             element.innerHTML = `
@@ -66,20 +76,25 @@ function tasks() {
                 </div>
                 <div class="task-card__desc">${this.description}</div>
             `;
-            document.querySelector('.task-list').append(element);
+            return element;
+        }
+        
+        render() {
+            document.querySelector('#todo-list').append(this.createElement());
         }
     }
         
         
     document.querySelector('.modal-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const title = document.querySelector('[name="title"]').value,
-        description = document.querySelector('[name="description"]').value;
+        const form = e.target;
+        const title = form.querySelector('[name="title"]').value,
+              description = form.querySelector('[name="description"]').value;
         if (!title.trim() || !description.trim()) return;
     
         new Task(title, description).render();
-        e.target.reset();
-        closeModal();
+        form.reset();
+        (0,_modal__WEBPACK_IMPORTED_MODULE_0__.closeModal)('.modal');
     })
 }
 
@@ -156,7 +171,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', () => {
-    (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal');
     (0,_modules_tasks_js__WEBPACK_IMPORTED_MODULE_1__["default"])()
 })
 })();
