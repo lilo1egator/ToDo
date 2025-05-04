@@ -31,7 +31,7 @@ gulp.task('watch', function() {
     gulp.watch("src/sass/**/*.+(scss|sass|css)", gulp.parallel('styles'));
     gulp.watch("src/*.html").on("change", browserSync.reload);
     gulp.watch("src/*.html").on("change", gulp.parallel('html'));
-    gulp.watch("src/js/**/*.js").on("change", gulp.parallel('scripts'));
+    // gulp.watch("src/js/**/*.js").on("change", gulp.parallel('scripts'));
     gulp.watch("src/fonts/**/*").on("all", gulp.parallel('fonts'));
     gulp.watch("src/icons/**/*").on("all", gulp.parallel('icons'));
     gulp.watch("src/img/**/*").on("all", gulp.parallel('images'));
@@ -43,11 +43,11 @@ gulp.task('html', function () {
         .pipe(gulp.dest("dist/"));
 });
 
-gulp.task('scripts', function () {
-    return gulp.src("src/js/**/*.js")
-        .pipe(gulp.dest("dist/js"))
-        .pipe(browserSync.stream());
-});
+// gulp.task('scripts', function () {
+//     return gulp.src("src/js/**/*.js")
+//         .pipe(gulp.dest("dist/js"))
+//         .pipe(browserSync.stream());
+// });
 gulp.task('scriptsPhp', function () {
     return gulp.src("src/js/**/*.php")
         .pipe(gulp.dest("dist/php"))
@@ -72,4 +72,4 @@ gulp.task('images', function () {
         .pipe(gulp.dest("dist/img"));
 });
 
-gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'scripts', 'fonts', 'icons', 'html', 'images', 'scriptsPhp'));
+gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'fonts', 'icons', 'html', 'images', 'scriptsPhp'));

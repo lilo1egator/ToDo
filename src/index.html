@@ -21,7 +21,7 @@
           <li class="task-card">
             <div class="task-card__header">
               <strong class="task-card__title">Title</strong>
-              <button class="task-card__menu" title="Дії із завданням" type="button">⋮</button>
+              <button class="task-card__menu" title="Actions" type="button">⋮</button>
             </div>
             <div class="task-card__desc">subtitle</div>
           </li>
@@ -50,8 +50,8 @@
     <div class="modal-content">
       <h3 class="modal-title">New task</h3>
       <form class="modal-form">
-        <input type="text" class="modal-input" placeholder="Назва задачі" required>
-        <textarea class="modal-textarea" placeholder="Опис (необов'язково)"></textarea>
+        <input name="title" type="text" class="modal-input" placeholder="Назва задачі">
+        <textarea name="description" class="modal-textarea" placeholder="Опис (необов'язково)"></textarea>
         <div class="modal-actions">
           <button type="button" class="modal-cancel">Cancel</button>
           <button type="submit" class="modal-submit">Add</button>
@@ -63,6 +63,6 @@
     <small>&copy; 2025 To Do App</small>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/bundle.js"></script>
 </body>
 </html>
